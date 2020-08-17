@@ -1,0 +1,32 @@
+{block content}
+<h1>Správa letenek</h1>
+
+<a href="{link Letenka:add}" class="btn btn-success">Přidat nové letenky</a>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Číslo letenky</th>
+          <th>Cena</th>
+          <th>Třída</th>
+          <th>Umístění</th>
+          <th>Let</th>
+          <th>Odstranit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$letenky as $letenka">
+          <td>{$letenka->ID_letenka}</td>
+          <td>{$letenka->cena}</td>
+          <td>{$letenka->trida}</td>
+          <td>{$letenka->umisteni}</td>
+          <td>{$db->table('let')->where('ID_let',$letenka->ID_let)->fetch()->kam} odlet: {substr($db->table('let')->where('ID_let',$letenka->ID_let)->fetch()->cas_odletu,0,16)}</td>
+          <td><a href="{link Letenka:remove $letenka->ID_letenka}"><button type="button" class="btn btn-xs btn-danger">Odstranit</button></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/block}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>FYO - Měření rychlosti světla</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+ <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">FYO - měření rychlosti světla</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="fizeau.html">Fizeau
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mikrovlnka.html">Mikrovlnka</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <section>
+      <div class="container">
+        <div class="row">
+            <h1 class="mt-5">Fizeauova metoda</h1>
+            <p>Jedná se o první úspěšný pokus přímého měření rychlosti světla v pozemských podmínkách, který provedl francouzský fyzik Hippolyte Fizeau. Zrcátko je vzdáleno od ozubeného kola několik kilometrů. Světlo ze zdroje projde mezerou mezi zuby ozubeného kola a putuje k zrcadlu, odrazí se a jde na zpět. Pokud opět trefí díru mezi zuby, tak dopadne na detektor světla. V opačném případě detektor nic nezaznamená. Podle nastavení rychlosti otáček ozubeného kola můžeme určit rychlost světla.</p>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <div id="fizeau">
+              <img id="light" src="css/light.png">
+              <div id="gear"></div>
+              <input type="range" class="slider" value="8000" min="100" max="10000" step="100" onchange="updateVzdalenost(this.value);" >
+            </div>
+            <label>Vzdálenost [m]: </label>
+            <input class="form-control" type="text" id="vzdalenost" value="8000">
+
+            <label>Počet zubů ozubeného kola: </label><input class="form-control" type="range" value="720" min="10" max="1000" step="10" onchange="updateGear(this.value);">
+            <input  class="form-control" type="text" id="zubu" value="720">
+
+            <label>Frekvence otáčení [Hz]: </label><input class="form-control" type="range" min="1" max="20" value="12" step="0.1" onchange="updateFreq(this.value);">
+            <input class="form-control" type="text" id="f" value="12.1">
+
+            <h2 id="fizeauresult">C = 0,0 m/s</h2>
+          </div>
+          <div>
+        </div>
+      </div>
+    </section>
+
+  </body>
+
+</html>

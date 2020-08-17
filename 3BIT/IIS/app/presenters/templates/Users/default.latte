@@ -1,0 +1,37 @@
+
+{block content}
+<h1>Editace uživatelů</h1>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Jméno</th>
+          <th>Role</th>
+          <th>Rodné číslo</th>
+          <th>Pohlaví</th>
+          <th>Email</th>
+          <th>Editace</th>
+          <th>Aktivace</th>
+          <th>Smazat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$users as $user">
+          <td>{$user->username}</td>
+          <td>{$user->role}</td>
+          <td>{$user->rodne_cislo}</td>
+          <td>{$user->pohlavi}</td>
+          <td>{$user->email}</td>
+          <td><a href="{link Users:edit $user->id}"><button type="button" class="btn btn-xs btn-info">Editovat</button></a></td>
+          <td>{if !$user->activ} <a href="{link Users:act $user->id}"><button type="button" class="btn btn-xs btn-success">Aktivovat</button></a> {else} <a href="{link Users:act $user->id}"><button type="button" class="btn btn-xs btn-danger">Deaktivovat</button></a>{/if}</td>
+          <td><a href="{link Users:remove $user->id}"> <button type="button" class="btn btn-xs btn-danger">Odstranit</button></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<a href="{link Users:add}" class="btn btn-success">Přidat nového uživatele</a>
+{/block}

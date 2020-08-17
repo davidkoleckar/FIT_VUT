@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Letiště</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>David Kolečkář <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xkolec07@stud.fit.vutbr.cz">xkolec07@stud.fit.vutbr.cz</a> - uživatelské rozhraní 
+	</dd>
+	<dd>Ondřej Janota <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xjanot02@stud.fit.vutbr.cz">xjanot02@stud.fit.vutbr.cz</a> - databázový systém 
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xkolec07/IIS/">http://www.stud.fit.vutbr.cz/~xkolec07/IIS/</a></dd>
+
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
+<tr><td>technik</td><td>technik</td><td>Technik</td></tr>
+<tr><td>spravce</td><td>spravce</td><td>Správce</td></tr>
+</table>
+
+<h2>Implementace</h2>
+<p>Systém byl napsán ve frameworku <a href="http://nette.org/cs/">Nette 2.3.10</a> a pro definici stylů byl použit CSS framework Bootstrap. Aplikace tedy využívá návrhový vzor Model-View-Controller.</p>
+
+<p>Aplikace se automaticky spouští skriptem app/presenter/HomepagePresenter.php -  kde lze najít vyhledávání letenek. Pro přihlášení do systému pomocí uživatelského jména a hesla slouží skript app/presenter/SignPresenter.php. Sekce správa terminálů obsahuje výpis všech terminálů a jednotlivé gaty u terminálu, dále umožňuje přidat nový terminál letiště - skript app/presenter/TerminalPresenter.php. Správa uživatelů včetně jejich aktivace/deaktivace je ve skriptu app/presenter/UsersPresenter.php. Sekce správa letů obsahuje výpis letů a příslušných informací k němu včetně možnosti přiřadit posádku k letu - app/presenter/LetPresenter.php. Vytváření letenek k jednotlivým letům je implementováno v app/presenter/LetenkaPresenter.php. Správa letadel pro technika je ve skriptu app/presenter/LetadlaPresenter.php.</p>
+<h2>Instalace</h2>
+<p>Pro instalaci projekt je nutné provést následující kroky:</p>
+<ol>
+<li>Nakopírovat zdrojové soubory do adresáře webového serveru</li>
+<li>Nastavte práva na složky <code>temp</code> a <code>log</code></li>
+<li>Importovat soubor /db/db.sql do MySQL databáze</li>
+<li>Upravit přístupové údaje do databáze v souboru <code>app/config/config.local.neon</code></li>
+</ol>
+<h2>Nároky</h2>
+<ul>
+<li>Nette Framework vyžaduje PHP verzi 5.3 a vyšší</li>
+<li>Pro databázi je nutné použít MySQL</li>
+<li>Apache mod_rewrite</li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>Žádné</p>
+
+</body>
+</html>

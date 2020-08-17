@@ -1,0 +1,34 @@
+
+{block content}
+<h1>Správa členů posádky</h1>
+
+<a href="{link Clen:add}" class="btn btn-success">Přidat nového člena posádky</a>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Jméno</th>
+          <th>Rodné číslo</th>
+          <th>Pohlaví</th>
+          <th>Funkce</th>
+          <th>Editovat</th>
+          <th>Smazat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$clenove as $clen">
+          <td>{$clen->jmeno}</td>
+          <td>{$clen->rodne_cislo}</td>
+          <td>{$clen->pohlavi}</td>
+          <td>{$clen->funkce} {if $clen->funkce == 'pilot'}Létá s: {$db->table('typ_letadla')->where('ID_typ',$db->table('ovlada')->where('ID_clen',$clen->ID_clen)->fetch()->ID_typ)->fetch()->typ}{else}
+          Umí: {foreach $db->table('umi')->where('ID_clen',$clen->ID_clen)->fetchPairs('ID_jazyk') as $item} {$item->ID_jazyk}, {/foreach}{/if}</td>
+          <td><a href="{link Clen:edit $clen->ID_clen}"><button type="button" class="btn btn-xs btn-info">Editovat</button></a></td>
+          <td><a href="{link Clen:remove $clen->ID_clen}"><button type="button" class="btn btn-xs btn-danger">Odstranit</button></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/block}

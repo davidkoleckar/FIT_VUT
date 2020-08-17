@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>WAP: Anotace dokumentů</title>
+	</head>
+	<body>
+		<h1>Návod</h1>
+		<h2>WAP: Anotace dokumentů</h2>
+		<h2>Informace</h2>
+		<p>Autor: David Kolečkář - xkolec07</p>
+		<p>Školní rok: 2017/2018</p>
+		<p>Demo: <a href="demo.html">demo.html</a></p>
+
+		<h2>Zadání:</h2>
+		<p>Vytvořte skript, který lze připojit k libovolnému HTML dokumentu. Při vložení skriptu do hlavičky dokumentu se bude dokument chovat následovně:</p>
+		<ul> 
+			<li>Při pohybu kurzoru myši nad dokumentem se vždy barevně zvýrazní (např. poloprůhledným podbarvením) rozměry toho elementu, nad kterým se kurzor nachází. Pokud se kurzor nachází nad více vnořenými elementy (což je typické), zobrazí se ten nejvíce nahoře. 
+			</li><li>Při kliknutí na zvýrazněný element se zobrazí dialog (vytvořený pomocí HTML/CSS) umožňující vložit textovou poznámku k danému elementu a k ní přiřadit nějakou barvu z předdefinované sady barev. Může být vloženo i více poznámek k jednomu elementu. 
+			</li><li>Jsou-li k elementu vložené nějaké poznámky, zobrazí se v pravém horním rohu elementu vhodná grafická značka. Při najetí na tuto značku myší se zobrazí opět HTML/CSS dialog obsahující všechny vložené poznámky k danému elementu podbarvené příslušnou barvou a opatřené datem vložení. 
+			</li><li>Pokud má některý element definovaný atribut title, jeho obsah se automaticky vloží jako první poznámka k danému elementu při načtení dokumentu. 
+			</li>
+		</ul> 
+		<p> Přitom nemusí zůstat zachována funkce odkazů ani případných dalších aktivních prvků v dokumentu (hover efekty apod,) Ukládání poznámek není třeba řešit, tzn. při novém načtení dokumentu se ručně vložené poznámky ztratí.</p>
+
+		<h2>Začlěnění funkce do stránky:</h2>
+		<p>Veškerý kód pro anotaci dokumentu je v souboru <tt>doc-annotation.js</tt>. K tomuto souboru je vytvořen stylový předpis  <tt>doc-annotation-style.css</tt>, který slouží pro editaci stylu dialogového okna, změnu ikony znázorňující vloženou poznámku a změnu barvy textu s velikostí elementu. Pro začlěnění skriptu je nutné, vložit do hlavičky dokumentu následující:</p>
+		<ul>
+			<li>&lt; script type="text/javascript" src="doc-annotation.js" &gt;&lt;/script &gt;</li>
+			<li>&lt; link type="text/css" rel="stylesheet" href="doc-annotation-style.css" / &gt;</li>
+		</ul>
+		<p>Skript automaticky ignoruje tagy HTML a BODY. U poznámek z atributů title, je datum poznámky neznámé a její barva je nastavena na bílou.</p>
+
+		<h2>Podpora prohlížečů:</h2>
+		<ul>
+			<li>Microsoft Edge</li>
+			<li>Firefox</li>
+			<li>Google Chrome</li>
+		</ul>
+	</body>
+</html>

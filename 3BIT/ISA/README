@@ -1,0 +1,37 @@
+FTP klient
+
+Autor: David Koleckar, xkolec07
+
+Popis: FTP klient umoznuje pracovat v aktivnim nebo pasivnim rezimu. Dale umoznuje nahrat na server dany soubor, soubor ze serveru stahnout nebo smazat a vypsat informace o adresarove strukture celeho serveru. Program je napsan v jazyce C++. 
+
+Seznam souboru:
+  manual.pdf       - dokumentace
+  Makefile         - prekladovy soubor
+  README           - tento soubor
+  fclient.cpp      - zdrojovy kod programu
+
+Priklady spusteni:
+  $ ./fclient -h
+  -vypise napovedu
+
+  $ ./fclient -s eva.fit.vutbr.cz -c cc.txt -p
+  -vypise adresarovou strukturu serveru
+
+  $ ./fclient -s eva.fit.vutbr.cz -c cc.txt -p -r filename
+  -smaze soubor filename
+
+  $ ./fclient -s eva.fit.vutbr.cz -c cc.txt -p -u filename
+  -nahraje soubor filename na server
+
+  $ ./fclient -s eva.fit.vutbr.cz -c cc.txt -p -d filename
+  -stahne soubor filename ze serveru
+
+Parametry programu:
+  -s server  IP adresa nebo doménové jméno serveru
+  -c filename  soubor s uživatelským jménem a heslem
+  -a port_number  aktivní mód, datové spojení bude inicializováno z daného portu
+  -p pasivní mód
+  -u filename soubor, který se uloží na server 
+  -d filename soubor, který se stáhne ze serveru 
+  -r filename soubor, který se má smazat ze serveru 
+  -P path  cesta k souboru, volitelný přepínač k -u, -d, -r

@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteBase /~xkolec07/IIS
+RewriteRule ^$ www/ [L]
+RewriteRule (.*) www/$1 [L]
+AddHandler application/x-httpd-php56 .php

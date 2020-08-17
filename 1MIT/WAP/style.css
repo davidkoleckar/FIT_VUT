@@ -1,0 +1,23 @@
+#table1 td{
+	border: 1px solid black;
+	padding:10px;
+}
+
+#table1{
+	border-collapse: collapse;
+}
+
+h1{
+	background-color: red;
+}
+
+#layer1{
+	width:300px;
+	height:300px;
+}
+#layer2{
+	background-color: blue;
+	width:200px;
+	height:200px;
+	margin: 0 auto;
+}

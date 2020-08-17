@@ -1,0 +1,30 @@
+
+
+{block content}
+<h1>Správa terminálů</h1>
+
+<a href="{link Terminal:add}" class="btn btn-success">Přidat nový terminál</a>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Název terminálu</th>
+          <th>Počet gatů</th>
+          <th>Gaty</th>
+          <th>Smazat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$terminaly as $terminal">
+          <td>{$terminal->nazev}</td>
+          <td>{$gaty->table('gate')->where('ID_terminal',$terminal->ID_terminal)->count()}</td>
+          <td>{foreach $gaty->table('gate')->where('ID_terminal',$terminal->ID_terminal)->fetchPairs('cislo') as $item}Číslo gatu: {$item->cislo} typ letadla: {$gaty->table('typ_letadla')->get($gaty->table('dovoluje')->get($item->ID_gate)->ID_typ)->typ}<br> {/foreach}</td>
+          <td><a href="{link Terminal:remove $terminal->ID_terminal}"><button type="button" class="btn btn-xs btn-danger">Odstranit</button></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/block}

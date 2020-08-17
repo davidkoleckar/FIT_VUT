@@ -1,0 +1,42 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[left=2cm,text={17cm, 24cm},top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage[IL2]{fontenc}
+
+\usepackage{times}
+
+\usepackage{natbib}
+\bibliographystyle{czplain}
+\pagenumbering{arabic}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\fontsize{27}{20}\selectfont\textsc{{Vysoké učení technické v~Brně}}\\
+\vspace{\stretch{0.0075}}
+\fontsize{22.7}{0}\textsc{\selectfont{Fakulta informačních technologií}}\\
+\vspace{\stretch{0.381}}
+\LARGE{Typografie a publikování\,--\,4. projekt}\\
+\Huge{Bibliografické citace}
+\vspace{\stretch{0.616}}
+\end{center}
+{\Large \today \hfill David Kolečkář}
+\end{titlepage}
+
+\section{Typografie}
+Typografie byla dříve označení pro tiskárenský průmysl, dnes jde především o nauku písma. Na internetu existuje mnoho článků, které se věnují písmové osnově \cite{Program:pismo}, kompozici textu \cite{Typomil:kompozice} nebo nejčastějším chybám v české typografii \cite{Typ:chyby}  atd. Odborný časopis Svět tisku \cite{Tisk}, je měsíčník o tisku a typografii. K přečtení bych doporučil dva odborné články. Typografie v designu \cite{Clanek1} nebo o typografii webových stránek \cite{Clanek2}.
+
+Protože typografie není jednoduchou záležitostí, vznikla řada programů, které mají za úkol usnadnit autorům práci a pomoci ve správné sazbě dokumentu. 
+Jedním z nich je i LaTeX. Ačkoliv uživatele může zpočátku zaskočit složitost systému, oproti klasickému textovému editoru Microsoft Word, jedná se vskutku o výjimečný nástroj. 
+Začátečníkům může pomoci česká publikace Latex pro začátečníky \cite{Rybicka}. Nebo populární cizojazyčná kniha \cite{Guide}, která přináší podrobný, názorný a srozumitelný výklad. 
+Za zmínku stojí také práce, věnující se problematice přípravy kvalitního českého písma  \cite{Cerny}.
+Mezi další nástroje patří například profesionální program Adobe InDesign, který umožňuje automatickou kontrolu typografických pravidel  \cite{Kubova}. 
+\newpage
+
+\renewcommand{\refname}{Literatura}
+\bibliography{proj4}
+
+\end{document} 

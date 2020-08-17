@@ -1,0 +1,40 @@
+
+{block content}
+<h1>Správa letů</h1>
+
+<a href="{link Let:add}" class="btn btn-success">Přidat nový let</a>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Čas odletu</th>
+          <th>Předpokládaný čas příletu</th>
+          <th>Max. počet cestujících</th>
+          <th>Cílová destinace</th>
+          <th>Místo odletu</th>
+          <th>Letadlo</th>
+          <th>Posádka</th>
+          <th>Akce</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$lety as $let">
+          <td>{substr($let->cas_odletu,0,16)}</td>
+          <td>{substr($let->cas_priletu,0,16)}</td>
+          <td>{$let->max_cestujicich}</td>
+           <td>{$let->kam}</td>
+          <td>Terminál: {$db->table('terminal')->where('ID_terminal',$let->ID_terminal)->fetch()->nazev} Gate:
+          {$db->table('gate')->where('ID_gate',$let->ID_gate)->fetch()->cislo}
+          </td>
+          <td>{$db->table('typ_letadla')->where('ID_typ',$db->table('letadlo')->where('ID_letadlo',$let->ID_letadlo)->fetch()->ID_typ)->fetch()->typ}</td>
+          <td>{foreach $db->table('ma')->where('ID_let',$let->ID_let)->fetchPairs('ID_clen') as $item} {$db->table('clen')->where('ID_clen',$item->ID_clen)->fetch()->jmeno}, {/foreach}</td>
+          <td><a href="{link Let:addclen $let->ID_let}"><button type="button" class="btn btn-xs btn-info">Přidat posádku</button></a><a href="{link Let:remove $let->ID_let}"><button type="button" class="btn btn-xs btn-danger">Odstranit let</button></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/block}

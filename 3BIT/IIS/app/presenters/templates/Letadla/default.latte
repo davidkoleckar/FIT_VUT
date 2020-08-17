@@ -1,0 +1,39 @@
+
+{block content}
+<h1>Správa letadel</h1>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Datum výroby</th>
+          <th>Datum poslední revize</th>
+          <th>Technik</th>
+          <th>Výrobce</th>
+          <th>Typ</th>
+          <th>Provést revizi</th>
+          <th>Smazat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$letadla as $letadlo">
+          <td>{$letadlo->datum_vyroby|date:'%d.%m.%Y'}</td>
+          <td>{$letadlo->datum_posledni_revize|date:'%d.%m.%Y'}</td>
+          <td>{$letadlo->ref('technik', 'ID_technik')->jmeno}  </td>
+          <td>{$letadlo->ref('typ_letadla', 'ID_typ')->vyrobce}</td>
+          <td>{$letadlo->ref('typ_letadla', 'ID_typ')->typ}</td>
+          <td><a href="{link Letadla:revize $letadlo->ID_letadlo}"><button type="button" class="btn btn-xs btn-info">Provést revizi</button></a></td>
+          <td><a href="{link Letadla:remove $letadlo->ID_letadlo}"><button type="button" class="btn btn-xs btn-danger">Odstranit</button></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<a href="#Foo" class="btn btn-success" data-toggle="collapse">Přidat nové letadlo</a>
+<div id="Foo" class="collapse">
+    {control addnewForm}
+</div>
+
+
+{/block}

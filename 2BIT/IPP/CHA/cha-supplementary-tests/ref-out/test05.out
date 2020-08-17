@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions dir="./">
+    <function file="ext/PAR.h" name="func1" varargs="no" rettype="int">
+        <param number="1" type="int *" />
+        <param number="2" type="const   float" />
+        <param number="3" type="const char[]" />
+    </function>
+    <function file="ext/PAR.h" name="func2" varargs="yes" rettype="int * (*    )(int)">
+        <param number="1" type="void (*)(int)" />
+    </function>
+    <function file="ext/PAR.h" name="func3" varargs="no" rettype="int * (*           )(const int (*)[10])">
+        <param number="1" type="void ** (*) (int *, char **(*)(char *, char **))" />
+    </function>
+    <function file="ext/FUN.h" name="func1" varargs="yes" rettype="int * (*    )(int)">
+        <param number="1" type="void (*     )(int)" />
+    </function>
+    <function file="ext/FUN.h" name="func2" varargs="no" rettype="int * (*           )(const int (*)[10])">
+        <param number="1" type="void ** (*) (int *, char **(*)(char *, char **))" />
+    </function>
+    <function file="ext/FUN.h" name="func3" varargs="no" rettype="extern tagResult *">
+        <param number="1" type="tagFile *const" />
+        <param number="2" type="tagFile *const" />
+    </function>
+    <function file="basic/trivial.h" name="isBraceFormat" varargs="no" rettype="int">
+    </function>
+    <function file="basic/trivial.h" name="getDirectiveNestLevel" varargs="no" rettype="unsigned int">
+    </function>
+    <function file="basic/trivial.h" name="cppInit" varargs="no" rettype="void">
+        <param number="1" type="const double *" />
+        <param number="2" type="char" />
+    </function>
+    <function file="basic/trivial.h" name="cppUngetc" varargs="yes" rettype="void">
+        <param number="1" type="char *" />
+    </function>
+    <function file="basic/more.h" name="f" varargs="no" rettype="void">
+        <param number="1" type="int" />
+    </function>
+    <function file="basic/more.h" name="h" varargs="no" rettype="void">
+        <param number="1" type="int" />
+    </function>
+    <function file="basic/more.h" name="f" varargs="no" rettype="double">
+        <param number="1" type="int" />
+        <param number="2" type="int" />
+    </function>
+    <function file="basic/more.h" name="f" varargs="no" rettype="double">
+        <param number="1" type="int" />
+        <param number="2" type="int" />
+    </function>
+    <function file="basic/subdir/subsubdir/whitespace.h" name="lineBreak" varargs="no" rettype="extern inline void">
+    </function>
+    <function file="basic/subdir/subsubdir/whitespace.h" name="debugPrintf" varargs="yes" rettype="extern      inline void">
+        <param number="1" type="const int" />
+        <param number="2" type="const char   		*  const" />
+    </function>
+    <function file="basic/subdir/subsubdir/whitespace.h" name="debugPutc" varargs="no" rettype="extern void">
+        <param number="1" type="const int" />
+        <param number="2" type="const int" />
+    </function>
+</functions>

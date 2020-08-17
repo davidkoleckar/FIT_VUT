@@ -1,0 +1,31 @@
+{block content}
+
+<h1>Výsledky vyhledávání ({$kam})</h1>
+{if $test->count()==0}<h1>Žádný výsledek</h1>{/if}
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Čas odletu</th>
+          <th>Čas příletu</th>
+          <th>Místo odletu</th>
+          <th>Třída a cena</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr n:foreach="$test as $t">
+          <td>{$t->cas_odletu}</td>
+          <td>{$t->cas_priletu}</td>
+          <td>Terminál: {$db->table('terminal')->where('ID_terminal',$t->ID_terminal)->fetch()->nazev} Gate:
+          {$db->table('gate')->where('ID_gate',$t->ID_gate)->fetch()->cislo}
+          </td>
+          <td>{foreach $db->table('letenka')->where('ID_let',$t->ID_let) as $item} {$item->trida} - {$item->cena} kč,<br> {/foreach}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+{/block}

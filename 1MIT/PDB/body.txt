@@ -1,0 +1,6 @@
+xkolec07	100 %
+xnavra53	100 %
+xbocan00	100 %
+Vedoucim projektu je David Koleckar(xkolec07), pracoval na tvorbì temporálních dotazù, návrhu DB, tvorba dokumentací, programování multimediálních dat.
+Petr Navratil(xnavra53) pracoval na tvorbì DB, implementace temporálních dotazù a prostorových dat.
+Hynek Bocan(xbocan00) pracoval na GUI klienta a podílel se na tvorbì DB.

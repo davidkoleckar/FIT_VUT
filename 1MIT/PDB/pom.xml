@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+<groupId>org.springframework</groupId>
+<artifactId>gs-spring-boot</artifactId>
+<version>0.1.0</version>
+
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.8.RELEASE</version>
+</parent>
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-jdbc</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-jdbc</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+        <optional>true</optional>
+    </dependency>
+
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.7.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.7.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP</artifactId>
+        <version>2.7.4</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>0.7.0</version>
+    </dependency>
+
+
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.oracle.weblogic</groupId>
+        <artifactId>ojdbc8</artifactId>
+        <version>12.2.0.1.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>oracle.sdo.locator</groupId>
+        <artifactId>sdoapi</artifactId>
+        <version>12.2.0.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>oracle.sdo.locator</groupId>
+        <artifactId>sdogr</artifactId>
+        <version>12.2.0.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>oracle.sdo.locator</groupId>
+        <artifactId>sdonm</artifactId>
+        <version>12.2.0.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>oracle.sdo.locator</groupId>
+        <artifactId>sdotopo</artifactId>
+        <version>12.2.0.1.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>oracle.ord.im</groupId>
+        <artifactId>ordim</artifactId>
+        <version>12.2.0.1.0</version>
+    </dependency>
+
+</dependencies>
+
+<properties>
+    <java.version>1.8</java.version>
+</properties>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+
+<repositories>
+    <repository>
+        <id>maven.oracle.com</id>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <url>https://maven.oracle.com</url>
+        <layout>default</layout>
+    </repository>
+</repositories>
+<pluginRepositories>
+    <pluginRepository>
+        <id>maven.oracle.com</id>
+        <url>https://maven.oracle.com</url>
+    </pluginRepository>
+</pluginRepositories>
+
+</project>

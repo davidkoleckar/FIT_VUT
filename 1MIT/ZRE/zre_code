@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+
+#ZRE projekt 2018 - codec 16kbit/s
+#Author - David Koleckar - xkolec07
+
+import sys, os, array, numpy, math, struct, scipy
+from scipy.linalg import toeplitz
+from scipy.signal  import medfilt
+
+def autocorr(x):
+    result = numpy.correlate(x, x, mode='full')
+    return result
+
+def lag_acf(x,lmin,lmax,thr):
+	N = len(x)
+
+	aaa = autocorr(x)
+	R = aaa[N:(2*N-1)]
+	Rmax = max(R[lmin:lmax])
+	ii = numpy.argmax(R[lmin:lmax])
+
+	if Rmax/R[0] >= thr:
+		L = ii+lmin
+	else:
+		L = 0
+
+	return L
+
+def lpc(x, lram, P):
+	R = autocorr(x)
+	R = R[(lram-1):(lram+P)]
+
+	RLEFT = toeplitz(R[0:P])
+	RRIGHT = -R[1:(P+1)]
+	adirect = numpy.matmul(numpy.linalg.inv(RLEFT), RRIGHT)
+	return adirect
+
+def param(sm,lram,pram,P,Lmin,Lmax,thr):
+	sr = frame(sm,lram,pram)
+	
+	Nram = sr.shape[1]
+	A = numpy.array([ [0.0] * Nram for _ in range(P)])
+	G = numpy.array([ [0.0] * Nram for _ in range(1)])
+	LAG = numpy.array([ [0.0] * Nram for _ in range(1)])
+	#print pocet ramcu
+	print("Pocet ramcu kodovaneho signalu: " + str(Nram), file=sys.stderr)
+	for n in range(Nram):
+		x = sr[:,n]
+		a = lpc(x, lram, P)
+		A[:,n] = numpy.transpose(a)
+
+		l = lag_acf(x,20,160,0.5)
+		LAG[0][n] = l
+
+		tmp = numpy.power(x, 2)
+		e = numpy.sum(tmp)/lram
+		G[0][n] = e
+	#LAG = scipy.signal.medfilt(LAG,5)
+	return A, G , LAG
+
+
+def frame(sw,ls,rs):
+	fs = ls - rs
+
+	Nram = 1 + math.floor((len(sw)-ls)/fs)
+	swram = numpy.array([ [0.0] * Nram for _ in range(ls)])
+	odtud = 0
+	potud = ls
+	for ii in range(Nram):
+		ramec = numpy.transpose(sw[odtud:potud])
+		swram[:,ii] = ramec
+		odtud = odtud + fs
+		potud = potud + fs
+	return swram
+
+def main(argv):
+	#kontrola parametru
+	if len(argv) < 3:
+		print("Chybny pocet parametru!")
+	else:
+		inputFileName = argv[1]
+		outputFileName = argv[2]
+
+	#read RAW file
+	count = (int) (os.stat(inputFileName).st_size / 2)
+	with open(inputFileName, 'rb') as fp:
+		a = array.array("h")
+		a.fromfile(fp,count)
+	fp.close()
+	#convert to double
+	s = numpy.asarray([x / 32767 for x in a])
+	#vypis pocet vzorku
+	print("Pocet vzorku kodovaneho signalu: " + str(len(s)), file=sys.stderr)
+	#compute lpc, pitchcor, lags
+	sm = [x - s.mean() for x in s]
+	A, G, L = param(sm,200,0,10,20,146,0.3)
+
+	#write to file .cod
+	LAGS = []
+	GAIN = []
+	AS = []
+	for i in range(len(L[0])):
+		LAGS.append(L[0][i])
+	for i in range(len(G[0])):
+		GAIN.append(G[0][i])
+	for i in range(len(A)):
+		for j in range(len(A[0])):
+			AS.append(A[i][j])
+	#na zacatek souboru zapisi pocet ramcu
+	vel = str(len(A[0]))
+	for i in range(7):
+		if len(vel) < 8:
+			vel += 'Z'
+
+	output_file = open(outputFileName, 'wb')
+	output_file.write(vel.encode('ascii'))
+	d1 = struct.pack('f'*len(LAGS), *LAGS)
+	d2 = struct.pack('f'*len(GAIN), *GAIN)
+	d3 = struct.pack('f'*len(AS), *AS)
+	output_file.write(d1)
+	output_file.write(d2)
+	output_file.write(d3)
+	output_file.close()
+
+	sys.exit(0)
+
+if __name__ == "__main__":
+	main(sys.argv)

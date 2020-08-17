@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+	<meta charset="utf-8">
+	<title>Aqua Land - QLand</title>
+	<meta name="robots" content="index,follow">
+	<meta name="keywords" content="">
+	<meta name="description" content="Aquapark">
+	<link rel="stylesheet" href="style.css" type="text/css">
+	<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="jquery.cookie.js"></script>
+	<script type="text/javascript">
+$(document).ready(function(){
+
+	$(function() {
+	if ($.cookie('viewState') === 'true')
+	    $("#show").show();
+	else
+	    $("#show").hide();
+	});
+
+	$('#hide').click(function() {
+    var closed = $("#show").is(":hidden");
+    if ( closed ){
+        $("#show").show();
+     	  $.cookie('viewState', 'true');
+     	}
+    else{
+        $("#show").hide();
+    		$.cookie('viewState', 'false');
+    	}
+	});
+});
+	</script>
+</head>
+<body>
+<div id="page">
+
+<header id="head">
+<div class="bg"></div>
+<div class="content">
+	<h1 id="hh1"><a href="http://www.stud.fit.vutbr.cz/~xkolec07/itw2/index.html" title="Aqua Land">QLand</a></h1>
+	
+	<nav id="menu">
+		<ul class="main">
+			<li><a href="./index.html">Home</a></li>
+			<li><a href="./gallery.html">Gallery</a></li>
+			<li><a href="./about.html">About</a></li>
+			<li><a href="./attractions.html">Attractions</a></li>
+		</ul>
+	</nav>
+			
+</div>
+</header>
+
+<div class="descript">
+			Welcome to aquapark<br><a href="http://www.stud.fit.vutbr.cz/~xkolec07/itw2/"><strong>The QLand</strong></a>		
+</div>
+
+<section id="home">
+<div class="content">
+	<h2>See our attractions</h2>
+	<div class="col c1">
+		<h3>Attractions</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+		<a href="./attractions.html">Read more</a>
+	</div>
+	<div class="col c2">
+		<img src="images/1.jpg" alt="">
+		<h3>Aqua slides</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+	</div>
+	<div class="col c3">
+		<img src="images/3.jpg" alt="">
+		<h3>Restaurant</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+	</div>
+	<div class="col c4">
+		<img src="images/2.jpg" alt="">
+		<h3>Wellness</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+	</div>
+	
+</div>
+</section>
+
+<section id="news">
+<div class="content">
+	<h2>News</h2>
+	<a id="hide">Show description</a>
+	<div id="row">
+		<table>
+			<tr><td>13.4.2017</td><td>First news!<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td></tr>
+			<tr><td>10.4.2017</td><td>Second news!<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td></tr>
+			<tr><td>6.4.2017</td><td>Third news!<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td></tr>
+		</table>
+
+		<table>
+			<tr><td>13.4.2016</td><td>Fifth news!<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td></tr>
+			<tr><td>5.3.2016</td><td>Sixth news!<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td></tr>
+			<tr><td>3.3.2015</td><td>Seventh news!<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td></tr>
+		</table>
+	</div>
+	<p id="show">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+</div>
+</section>
+		
+<section id="ticket">
+<div class="content">
+	<h2>Tickets available from <strong>11 Euro</strong> for 1 person per 1 day</h2>
+	<hr>
+	<button type="button">Buy tickets today!</button>
+</div>
+</section>
+
+<footer id="foot">
+	<div class="content">
+		<div class="col_foot"><h1 id="fh1">QLand</h1></div>
+		<ul class="col_foot">
+			<li><a href="#">Aenean sollicitudin</a></li>
+			<li><a href="#">Duis sed odio sit amet</a></li>
+			<li><a href="#">Morbi accumsan</a></li>
+			<li><a href="#">Nam nec tellus</a></li>
+			<li><a href="#">Class aptent taciti</a></li>
+		</ul>
+		<ul class="col_foot">
+			<li><a href="#">Class aptent taciti</a></li>
+			<li><a href="#">Nam nec tellus</a></li>
+			<li><a href="#">Morbi accumsan</a></li>
+			<li><a href="#">Aenean sollicitudin</a></li>
+			<li><a href="#">Duis sed odio sit amet</a></li>
+		</ul>
+		<div id="socialmedia">
+			<a href="#"><img src="images/fb.png" alt=""></a>
+			<a href="#"><img src="images/twitter.png" alt=""></a>
+			<a href="#"><img src="images/insta.png" alt=""></a>
+			<p>Tel: +420600700800</p>
+			<p>E-mail: <a href="mailto:qland@info.com">qland@info.com</a></p>
+		</div>
+	</div>
+</footer>
+<div id="copy">
+	© 2017 QLand. All Rights Reserved. <a href="./map.html">SITEMAP</a>
+</div>
+</div>
+</body>
+</html>

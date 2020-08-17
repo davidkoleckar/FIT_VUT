@@ -1,0 +1,234 @@
+#!/usr/bin/env bash
+export LC_ALL=C
+
+# IOS - Projekt 1, skript wedi
+# wedi - wrapper textoveho editoru s moznosti automatickeho vyberu souboru
+# Autor: David Koleckar (xkolec07@fit.vutbr.cz)
+
+EDITOR=vim
+VISUAL=gedit
+if [ -z $EDITOR ]; then
+    if [ -z $VISUAL ]; then
+        echo "Není zadán editor" >&2
+        exit 1
+    else 
+   export EDITOR=$VISUAL
+fi
+
+fi
+
+if [ -z $WEDI_RC ]; then
+    echo "Není zadaná proměnná WEDI_RC" >&2
+    exit 1
+fi
+
+#stderr
+echoerr() { echo "$@" 1>&2; }
+
+# absolutni cesta
+abspath() {
+    if [ -d "$1" ]; then
+        # dir
+        CESTA="$(cd "$1"; pwd)/"
+    elif [ -f "$1" ]; then
+        # file
+        if [[ $1 == */* ]]; then
+            CESTA="$(cd "${1%/*}"; pwd)/${1##*/}"
+        else
+            CESTA="$(pwd)/$1"
+        fi
+    fi
+ADRESAR=${CESTA%/*}
+SOUBOR=${CESTA##*/}
+}
+
+
+#pokud byl zadan skriptu soubor bude editovan
+if [ -f "$1" ] && [ $# -eq 1 ] ; then 
+abspath "$1"
+$EDITOR "$CESTA"
+	if [ $? = 1 ] ; then 
+	echoerr "EROR EDITORU" 
+	exit 1
+	else 
+	NOW="$(date +'%Y%m%d')"
+	printf "%s^%s^%s\n" "$NOW" "$ADRESAR" "$SOUBOR">>"$WEDI_RC"
+	exit 0
+	fi
+elif [ -d "$1" ] ; then #byl zadan adresar
+abspath "$1"
+		if ! grep -q "$ADRESAR\^" "$WEDI_RC"; then
+		echoerr "V danem adresari nebyl editovan zadny soubor"
+		exit 1
+		fi
+POSLEDNI="$(cut -f2,3 -d'^' $WEDI_RC | grep "$ADRESAR\^" |  cut -f2 -d'^' | tail -1)"
+SPOJ=$ADRESAR/$POSLEDNI
+$EDITOR "$SPOJ"
+	if [ $? = 1 ] ; then 
+	echoerr "EROR EDITORU" 
+	exit 1
+	else 
+	NOW="$(date +'%Y%m%d')"
+	printf "%s^%s^%s\n" "$NOW" "$ADRESAR" "$POSLEDNI">>$WEDI_RC
+	exit 0
+	fi
+
+fi
+
+#pokud nebyl zadan adresar
+if [ $# -eq 0 ]; then 
+	ADRESAR=$(pwd)
+		if ! grep -q "$ADRESAR\^" $WEDI_RC; then
+		echoerr "V danem adresari nebyl editovan zadny soubor"
+		exit 1
+		fi	 	
+	POSLEDNI="$(cut -f2,3 -d'^' $WEDI_RC | grep "$ADRESAR\^" |  cut -f2 -d'^' | tail -1)"
+	SPOJ=$ADRESAR/$POSLEDNI
+	$EDITOR "$SPOJ"
+	if [ $? = 1 ] ; then 
+	echoerr "EROR EDITORU" 
+	exit 1
+	else 
+	NOW="$(date +'%Y%m%d')"
+	printf "%s^%s^%s\n" "$NOW" "$ADRESAR" "$POSLEDNI">>$WEDI_RC
+	exit 0
+	fi
+fi
+
+#parametr L 
+if [ "$1" = -l ] ; then
+	if [ $# -eq 1 ]; then #pokud nebyl zadan adresar
+	ADRESAR=$(pwd) 
+	cut -f2,3 -d'^' $WEDI_RC | grep "$ADRESAR\^" |  cut -f2 -d'^' | sort | uniq
+
+	exit 0	
+	fi
+
+	if [ -d "$2" ] && [ $# -eq 2 ]; then #pokud byl zadan adresar
+	abspath "$2"
+	cut -f2,3 -d'^' $WEDI_RC | grep "$ADRESAR\^" | cut -f2 -d'^' | sort | uniq
+	exit 0
+	else 
+	echoerr "zadany adresar neexistuje"
+	exit 1
+	fi
+fi
+#konec parametr L
+
+
+#parametr M 
+if [ "$1" = -m ] ; then
+	if [ $# -eq 1 ]; then #pokud nebyl zadan adresar
+	ADRESAR=$(pwd)
+		if ! grep -q "$ADRESAR\^" $WEDI_RC; then
+		echoerr "V danem adresari nebyl editovan zadny soubor"
+		exit 1
+		fi	 
+	MOST="$(cut -f2,3 -d'^' $WEDI_RC | grep "$ADRESAR\^" | sort | uniq -c | sort -rn | head -1 | cut -f2 -d'^')"
+	SPOJ=$ADRESAR/$MOST
+	$EDITOR "$SPOJ"
+		if [ $? = 1 ] ; then 
+		echo "EROR EDITORU" 
+		exit 1
+		else 
+		NOW="$(date +'%Y%m%d')"
+		printf "%s^%s^%s\n" "$NOW" "$ADRESAR" "$MOST">>$WEDI_RC
+		fi
+	exit 0	
+	fi
+
+	if [ -d "$2" ] && [ $# -eq 2 ]; then #pokud byl zadan adresar
+	abspath "$2"
+		if ! grep -q "$ADRESAR\^" $WEDI_RC; then
+		echoerr "V danem adresari nebyl editovan zadny soubor"
+		exit 1
+		fi
+	MOST="$(cut -f2,3 -d'^' $WEDI_RC | grep "$ADRESAR\^" | sort | uniq -c | sort -rn | head -1 | cut -f2 -d'^')"
+	SPOJ=$ADRESAR/$MOST
+	$EDITOR "$SPOJ"
+		if [ $? = 1 ] ; then 
+		echoerr "EROR EDITORU" 
+		exit 1
+		else 
+		NOW="$(date +'%Y%m%d')"
+		printf "%s^%s^%s\n" "$NOW" "$ADRESAR" "$MOST">>$WEDI_RC
+		fi
+	exit 0
+	else 
+	echoerr "zadany adresar neexistuje"
+	exit 1
+	fi
+
+fi
+#konec parametr M
+
+
+#parametr A 
+if [ "$1" = -a ]; then
+if [[ $2 == [0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9] ]]; then  
+DATUM=$(echo "$2" | tr -d "-")
+	if [ $# -eq 2 ]; then #pokud nebyl zadan adresar
+	ADRESAR=$(pwd)
+		if ! grep -q "$ADRESAR\^" $WEDI_RC; then
+		echoerr "V danem adresari nebyl editovan zadny soubor"
+		exit 1
+		fi	 
+	 grep "$ADRESAR\^" $WEDI_RC | awk -F "^" -v dat="$DATUM" '$1>= dat'  | cut -f3 -d'^' | sort | uniq
+	exit 0	
+	fi
+
+	if [ -d "$3" ] && [ $# -eq 3 ]; then #pokud byl zadan adresar
+	abspath "$3"
+		if ! grep -q "$ADRESAR\^" $WEDI_RC; then
+		echoerr "V danem adresari nebyl editovan zadny soubor"
+		exit 1
+		fi
+	 grep "$ADRESAR\^" $WEDI_RC | awk -F "^" -v dat="$DATUM" '$1>= dat'  | cut -f3 -d'^' | sort | uniq
+	exit 0
+	else 
+	echoerr "zadany adresar neexistuje"
+	exit 1
+	fi
+
+else 
+echoerr "spatny format data"
+exit 1
+fi
+fi
+#konec parametr A
+
+#parametr B 
+if [ "$1" = -b ]; then
+if [[ $2 == [0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9] ]]; then  
+DATUM=$(echo "$2" | tr -d "-")
+	if [ $# -eq 2 ]; then #pokud nebyl zadan adresar
+	ADRESAR=$(pwd)
+		if ! grep -q "$ADRESAR\^" $WEDI_RC; then
+		echoerr "V danem adresari nebyl editovan zadny soubor"
+		exit 1
+		fi	 
+	  grep "$ADRESAR\^" $WEDI_RC | awk -F "^" -v dat="$DATUM" '$1<= dat'  | cut -f3 -d'^' | sort | uniq
+	exit 0	
+	fi
+
+	if [ -d "$3" ] && [ $# -eq 3 ]; then #pokud byl zadan adresar
+	abspath "$3"
+		if ! grep -q "$ADRESAR\^" $WEDI_RC; then
+		echoerr "V danem adresari nebyl editovan zadny soubor"
+		exit 1
+		fi
+	 grep "$ADRESAR\^" $WEDI_RC | awk -F "^" -v dat="$DATUM" '$1<= dat'  | cut -f3 -d'^' | sort | uniq
+	exit 0
+	else 
+	echoerr "zadany adresar neexistuje"
+	exit 1
+	fi
+
+else 
+echoerr "spatny format data"
+exit 1
+fi
+fi
+#konec parametr B
+
+exit 0

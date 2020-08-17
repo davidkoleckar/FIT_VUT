@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/help.png</file>
+        <file>img/loadgame.png</file>
+        <file>img/pvsp.png</file>
+        <file>img/pvspc.png</file>
+        <file>img/bg.png</file>
+        <file>img/lg.png</file>
+        <file>img/8b.png</file>
+        <file>img/8w.png</file>
+        <file>img/6b.png</file>
+        <file>img/6w.png</file>
+        <file>img/10b.png</file>
+        <file>img/10w.png</file>
+        <file>img/12b.png</file>
+        <file>img/bg2.png</file>
+        <file>img/12w.png</file>
+        <file>img/save.png</file>
+        <file>img/undo.png</file>
+        <file>img/redo.png</file>
+    </qresource>
+</RCC>

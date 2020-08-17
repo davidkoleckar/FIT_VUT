@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+
+#ZRE projekt 2018 - codec 16kbit/s
+#Author - David Koleckar - xkolec07
+
+import sys, os, array, numpy, math, struct, random, scipy
+from scipy.signal  import lfilter
+numpy.seterr(divide='ignore', invalid='ignore')
+
+def read_vel(vel):
+	result = ''
+	for c in vel:
+		if chr(c).isdigit():
+			result += chr(c)
+
+	return result
+
+def frame(sw,ls,rs):
+	fs = ls - rs
+
+	Nram = 1 + math.floor((len(sw)-ls)/fs)
+	swram = numpy.array([ [0.0] * Nram for _ in range(ls)])
+	odtud = 0
+	potud = ls
+	for ii in range(Nram):
+		ramec = numpy.transpose(sw[odtud:potud])
+		swram[:,ii] = ramec
+		odtud = odtud + fs
+		potud = potud + fs
+	return swram
+
+def synthesize(A, G, L, P, lram, pram):
+	Nram = len(G)
+	shift = lram - pram
+
+	exc = [0.0 for i in range(lram)]
+	last = 0
+	#print pocet ramcu
+	print("Pocet ramcu dekodovaneho signalu: " + str(Nram), file=sys.stderr)
+	for ii in range(Nram):
+		l = math.floor(L[ii])
+
+		if l == 0:
+			e = [random.gauss(0, 1) for i in range(shift)]
+		else:
+			e = [0.0 for i in range(shift)]
+			p = numpy.arange(last, shift+1, l)
+			pulses = []
+			for item in p:
+				if item >= 1.0:
+					pulses.append(item)
+
+			if len(pulses) != 0:
+				lastpulse = max(pulses)
+				last = -shift -1 + lastpulse
+				for i in pulses:
+					e[i-1] = 1.0
+
+			else:
+				last = last - shift
+
+		exc = numpy.concatenate((exc, e), axis=0)
+
+	er = frame(exc,lram,pram)
+	synt = [0.0 for i in range(lram)]
+	for ii in range(Nram):
+		e = er[:,ii]
+		a = A[:,ii]
+
+		ss = scipy.signal.lfilter([1],a,e)
+		ss = ss[pram:lram]
+		Ewanted = G[ii]
+		Eactual = 1/shift *  numpy.sum(numpy.power(ss, 2))
+		ratio = Ewanted / Eactual
+		ss = ss * math.sqrt(ratio)
+		synt = numpy.concatenate((synt, ss.conj().transpose()), axis=0)
+
+	return synt
+
+def main(argv):
+	#zpracovani parametru
+	if len(argv) < 3:
+		print("Chybny pocet parametru!")
+	else:
+		inputFileName = argv[1]
+		outputFileName = argv[2]
+
+	#nacteni souboru .cod
+	with open(inputFileName, 'rb') as f:
+		vel = f.read(8)
+		size = read_vel(vel)
+		LAGS = numpy.fromfile(f,'float32',int(size))
+		G = numpy.fromfile(f,'float32',int(size))
+		A = numpy.fromfile(f,'float32',int(size)*10)
+	f.close()
+
+	#prevod A do matice + vlozeni prvniho radku jednicek
+	on = [1.0 for i in range(int(size))]
+	A = numpy.insert(A, 0, on)
+	A = numpy.array(A)
+	A = A.reshape(11, int(size))
+
+	#synthesize - decode
+	ss = synthesize(A,G,LAGS,10,200,0)
+	#s = numpy.asarray([0 if math.isnan(x) else int(round(x*18000)) for x in ss])
+	s = numpy.asarray([0 if math.isnan(x) else x for x in ss])
+	#vypis pocet vzorku
+	print("Pocet vzorku dekodovaneho signalu: " + str(len(s)), file=sys.stderr)
+	#vypsani do .raw (short)
+	with open(outputFileName, 'wb') as fo:
+	    for i in range(0, len(s)):
+		    sample = min(int(s[i]*32767), 32767)
+		    sample = max(sample, -32767)
+		    packed = struct.pack('h', sample)
+		    fo.write(packed)
+	fo.close()
+
+	sys.exit(0)
+	
+if __name__ == "__main__":
+	main(sys.argv)

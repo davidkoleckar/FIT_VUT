@@ -1,0 +1,26 @@
+Projekt do predmetu KKO 2018/19 -  Komprese obrazových dat s využitím statického a adaptivního Huffmanova kódování
+Vytvořil David Kolečkář - xkolec07
+
+Parametry:
+	-c aplikace bude vstupní soubor komprimovat,
+	-d aplikace bude vstupní soubor dekoprimovat,
+	-h static zvolí režim statického Huffmanova kódování
+	-h adaptive zvolí režim adaptivního Huffmanova kódování
+	-m aktivuje model (např. diference pixelů) pro předzpracování vstupních dat
+	-i <ifile> název vstupního souboru. Dle režimu činnosti aplikace, viz přepínače –c/-d výše, se jedná
+	buď o data určená ke kompresi nebo dekompresi.
+	-o <ofile> název výstupního souboru. Dle režimu činnosti aplikace, viz přepínače –c/-d výše, se
+	jedná buď o zkomprimovaná či dekomprimovaná data,
+	-w <width_value> udává šířku obrazu, přičemž platí vztah width_value >= 1,
+	-h vypíše nápovědu na standardní výstup a ukončí se
+
+Příklad spuštění:
+	Komprimace hd01.raw do souboru hd01.bin šířka obrázku 512 pixelů s využitím modelu
+	./huff_codec -h static -m -c -i hd01.raw -o hd01.bin -w 512 
+
+	Dekomprimace hd01.bin do souboru myhd01.raw šířka obrázku 512 pixelů s využitím modelu
+	./huff_codec -h static -m -d -i hd01.bin -o myhd01.raw
+
+	Vypsání nápovědy 
+	./huff_codec -h
+

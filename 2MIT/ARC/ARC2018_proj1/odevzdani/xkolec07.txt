@@ -1,0 +1,7 @@
+Zrychlení u pøekrývané verze (PAR3) lze vidìt pøi vìtším poètì jader a velikosti úlohy, èím menší velikost domény je tím se zhoršuje i zrychlení. Nejpomalejší je verze PAR2 využívající tasky, kde efektivita se stoupajícím poètem jader klesá. Pøedpoklad byl, že verze PAR3 bude nejrychlejší pøi velkých domenách, což se také potvrdilo. Rozdíl mezi pøekrývanou a nepøekrývanou verzí PAR1 je ten, že pøi menším poètu jader nepøekrývaná verze pracuje rychleji, protože zde neprobíhá tolik režie jako ve verzi PAR3.
+
+Slabé škálování: køivky by v ideálním pøípadì mìli být uplnì rovné. Èím víc køivka stoupá, tím horší to je, protože stoupá režie. Grafy jsem udìlal pro velikost domény 64, kde lze vidìt stoupající køivku. V tomto pøípadì je zde mnoho režie.
+
+Silné škálování: ideální lineární køivka s klesající tendencí. To lze pozorovat u verze PAR1 a PAR3 jen do 8 jader, pak je køivka témìø konstantní.
+
+Pro verzi PAR3 s pøekrytím s velikosti domény 256 a poètem jader 8, byla zjištìna hodnota parametru w 4, kdy ještì nedochazí k výraznému pøekrytí zápisu výpoètem. Pro menší w se rychlost výraznì snižuje, kde pro w=2 už byla rychlost nižší než sekvenèní verze.

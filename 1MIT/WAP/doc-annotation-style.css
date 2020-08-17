@@ -1,0 +1,96 @@
+/**
+ * WAP: Anotace dokumentu 2017/2018
+ * Autor: David Kolečkář - xkolec07
+ * Stylovy predpis pro doc-annotation.js
+ */
+
+/* Ikona znazornujici vlozenou poznamku */
+.doc-annotation-icon{
+	background: radial-gradient(circle, red, yellow, black);
+    border:1px solid black;
+	position: absolute;
+	width:10px;
+	height:10px;
+    cursor: pointer;
+}
+
+/* Odstavec v dialogovem okne - zobrazujici obsah poznamky vcetne data */ 
+.doc-annotation-p{
+	padding: 5px;
+}
+
+/* Text s velikosti elementu */
+.doc-annotation-size{
+	position: absolute;
+	display: none;
+	color: rgba(0,0,0,0.8);
+	text-align: center;
+	font-weight: bold;
+	background-color:rgba(255,255,255,0.3);
+}
+
+/* Dialogove okno */
+.doc-annotation-modal {
+    display: none;
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.5); 
+}
+
+/* Obsah dialogoveho okna */
+.doc-annotation-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+/* Tlacitko (krizek) pro zavreni dialogoveho okna */
+.doc-annotation-close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.doc-annotation-close:hover,
+.doc-annotation-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Vstupni pole pro text poznamky*/
+.doc-annotation-input{
+	width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Tlacitko pro ulozeni poznamky */
+.doc-annotation-button{
+	width: 100%;
+    background-color: #4CAF50;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color:white;
+}
+/* Hover efekt pro tlacitko ulozeni poznamky */
+.doc-annotation-button:hover{
+    background-color: #45a050;
+}

@@ -1,0 +1,11 @@
+*.ui
+!mainwindow.ui
+*.cpp
+*.h
+*.o
+Makefile
+!main.cpp
+!mainwindow.cpp
+!mainwindow.h
+calculator
+Makefile
